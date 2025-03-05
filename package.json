@@ -94,5 +94,15 @@
     "urijs": "1.19.11",
     "venn.js": "0.2.20",
     "xss": "1.0.14"
+  },
+  "trex": {
+    "ui": {
+      "routes": [
+        {
+          "source": "/atlas",
+          "target": "/"
+        }
+      ]
+    }
   }
 }

@@ -44,6 +44,7 @@ define(function(require, exports) {
     });
 
     var getAuthorizationHeader = function () {
+        return "Bearer YOUR_TOKEN";
         if (!token()) {
             return null;
         }

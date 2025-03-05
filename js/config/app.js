@@ -7,7 +7,7 @@ define(function () {
   // default configuration
   appConfig.api = {
     name: 'Local',
-    url: 'http://localhost:8080/WebAPI/'
+    url: 'https://localhost:41100/webapi/'
   };
   appConfig.disableBrowserCheck = false; // browser check will happen by default
   appConfig.enablePermissionManagement = true; // allow UI to assign read/write permissions to entities
