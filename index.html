@@ -15,6 +15,22 @@
 
 		<title data-bind="text: pageTitle">ATLAS</title>
 		<script src="node_modules/bowser/bundled.js"></script>
+		<script>
+			// Atlas and Portal should share the same origin
+			// https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
+			const originUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+			window.addEventListener('message', (event) => {
+				if (event.origin !== originUrl || event.data?.source?.includes("react-devtools")) {
+					// Ignore messages from React DevTools
+					return;
+				}
+				if (!event?.data?.token) {
+					console.error('No D2E token passed from portal')
+					return
+				}
+				sessionStorage.setItem("d2e-token", event.data.token);
+			})
+		</script>
 	</head>
 
 	<body class="app">
