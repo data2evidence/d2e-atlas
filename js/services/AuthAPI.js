@@ -44,7 +44,8 @@ define(function(require, exports) {
     });
 
     var getAuthorizationHeader = function () {
-        return "Bearer YOUR_TOKEN";
+        const d2eToken = sessionStorage.getItem("d2e-token")
+        return `Bearer ${d2eToken}`;
         if (!token()) {
             return null;
         }
