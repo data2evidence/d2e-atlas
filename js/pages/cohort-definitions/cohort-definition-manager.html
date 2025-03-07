@@ -76,15 +76,15 @@
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.generation', 'Generation')"></a>
 			</li>
 
-			<li role="presentation"
+			<!-- <li role="presentation"
 				data-bind="visible: !previewVersion(), css: { active: $component.tabMode() == 'samples' }, click: clickSampleTab">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.samples', 'Samples')"></a>
-			</li>
+			</li> -->
 
-			<li role="presentation"
+			<!-- <li role="presentation"
 				data-bind="visible: !previewVersion(), css: { active: $component.tabMode() == 'reporting' }, click: function() { $component.selectTab('reporting'); }">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.reporting', 'Reporting')"></a>
-			</li>
+			</li> -->
 			<!--
 			<li role="presentation"
 				data-bind="visible: !previewVersion(), css: { active: $component.tabMode() == 'explore' }, click: function() { $component.selectTab('explore'); }">
@@ -98,12 +98,11 @@
 			<li role="presentation" data-bind="css: { active: $component.tabMode() == 'versions' }, click: () => { $component.selectTab('versions'); }">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.versions', 'Versions')"></a>
 			</li>
-			<li role="presentation" data-bind="css: { active: $component.tabMode() === 'warnings' }, click: function(){ $component.selectTab('warnings'); } ">
+			<!-- <li role="presentation" data-bind="css: { active: $component.tabMode() === 'warnings' }, click: function(){ $component.selectTab('warnings'); } ">
 				<a>
-					<span data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.messages', 'Messages')"></span>
-					<!-- ko component: { name: 'warnings-badge', params: warningParams() } --> <!-- /ko -->
-				</a>
-			</li>
+					<span data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.messages', 'Messages')"></span> -->
+				<!-- </a>
+			</li> -->
 		</ul>
 		<div class="tab-content">
 			<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'definition' }" class="tab-pane">
@@ -783,13 +782,13 @@
 								visible: $component.isSourceRunning($data),
 								attr: {disabled: $component.isCancelDisabled($data)}"><i class="fa fa-spinner fa-spin"></i> <span data-bind="text: ko.i18n('common.cancel', 'Cancel')"></span>
 		</a>
-		<button class="btn btn-sm btn-primary"
+		<!-- <button class="btn btn-sm btn-primary"
 			 data-bind="attr: {disabled: $component.isSourceRunning($data) || !isValid()}, click:$component.toggleCohortReport">
 			<i class="fa fa-eye"></i>
 			<span data-bind="text: (($component.selectedReportSource() && $component.selectedReportSource().sourceKey === sourceKey)
 											? ko.i18n('cohortDefinitions.cohortDefinitionManager.panels.hideReports', 'Hide Reports')
 											: ko.i18n('cohortDefinitions.cohortDefinitionManager.panels.viewReports', 'View Reports'))"></span>
-		</button>
+		</button> -->
 	</div>
 </script>
 
