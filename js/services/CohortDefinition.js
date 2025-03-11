@@ -15,14 +15,22 @@ define(function (require, exports) {
 	}
 
 	function getCohortDefinitionList() {
+        const d2eToken = sessionStorage.getItem("d2e-token")
+        const datasetId = sessionStorage.getItem("d2e-datasetId")
 		var promise = $.ajax({
 			url: config.webAPIRoot + 'cohortdefinition/',
-			error: authApi.handleAccessDenied
+			error: authApi.handleAccessDenied,
+			headers: {
+				"Authorization":  `Bearer ${d2eToken}`,
+				"datasetId": datasetId
+			}
 		});
 		return promise;
 	}
 
 	async function saveCohortDefinition(definition) {
+        const d2eToken = sessionStorage.getItem("d2e-token")
+        const datasetId = sessionStorage.getItem("d2e-datasetId")
 		return authApi.executeWithRefresh($.ajax({
 			url: config.webAPIRoot + 'cohortdefinition/' + (definition.id || ""),
 			method: definition.id ? 'PUT' : 'POST',
@@ -31,6 +39,10 @@ define(function (require, exports) {
 			error: function(error) {
 				console.log("Error: " + error);
 				authApi.handleAccessDenied(error);
+			},
+			headers: {
+				"Authorization":  `Bearer ${d2eToken}`,
+				"datasetId": datasetId
 			}
 	  }));
 	}
@@ -60,7 +72,7 @@ define(function (require, exports) {
 			.doGet(config.webAPIRoot + 'cohortdefinition/' + id)
 			.then(res => {
 				const cohortDef = res.data;
-				cohortDef.expression = JSON.parse(cohortDef.expression);
+				// cohortDef.expression = JSON.parse(cohortDef.expression);
 				return cohortDef;
 			}).catch(error => {
 				console.log("Error: " + error);

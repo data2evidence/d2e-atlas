@@ -15,6 +15,60 @@
 
 		<title data-bind="text: pageTitle">ATLAS</title>
 		<script src="node_modules/bowser/bundled.js"></script>
+		<script type="module">
+			import LogtoClient from 'https://cdn.jsdelivr.net/npm/@logto/browser@2.2.13/+esm';
+
+			const logtoClient = new LogtoClient({
+				endpoint: 'https://localhost:41100/oauth',
+				tokenEndpoint: 'https://localhost:41100/oauth/token',
+				appId: 'kFC3xKg6v3GlzlrXH1XMP',
+			});
+
+			const callbackHandler = async (logtoClient) => {
+				console.log('JER callbackHandler')
+				await logtoClient.handleSignInCallback(window.location.href);
+			  
+				if (!logtoClient.isAuthenticated) {
+				  // Handle failed sign-in
+				  alert('Failed to sign in');
+				  return;
+				}
+			  
+				// Handle successful sign-in
+				window.location.assign('/jerome');
+			  };
+
+			  try {
+				callbackHandler(logtoClient)
+			  } catch (e) {
+				console.error(e)
+			  }
+			const isAuthenticated = await logtoClient.isAuthenticated();
+
+			const onClickSignIn = () => {
+				logtoClient.signIn('https://localhost:41100/atlas');
+			};
+			const onClickSignOut = () => {
+				logtoClient.signOut('https://localhost:41100');
+			};
+
+			const button = document.createElement('button');
+			button.innerHTML = isAuthenticated ? 'Sign Out' : 'Sign In';
+			button.style.position = 'fixed';
+			button.style.left = '0px';
+			button.style.top = '0px';
+			button.addEventListener('click', isAuthenticated ? onClickSignOut : onClickSignIn);
+
+			document.body.appendChild(button);
+			console.log('JEROME')
+
+			if (isAuthenticated) {
+
+				
+				const accessToken = await logtoClient.getAccessToken('https://localhost:4000/oauth/token');
+				console.log('jer', accessToken)
+			}
+		  </script>
 		<script>
 			// Atlas and Portal should share the same origin
 			// https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
@@ -29,6 +83,8 @@
 					return
 				}
 				sessionStorage.setItem("d2e-token", event.data.token);
+				sessionStorage.setItem("d2e-datasetId", event.data.datasetId);
+				sessionStorage.setItem("d2e-username", event.data.username);
 			})
 		</script>
 	</head>

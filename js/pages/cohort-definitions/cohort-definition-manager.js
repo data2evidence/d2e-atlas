@@ -1636,15 +1636,15 @@ define(['jquery', 'knockout', 'text!./cohort-definition-manager.html',
 
 			if (this.previewVersion()) {
 				createdText = ko.i18n('components.authorship.versionCreated', 'version created');
-				createdBy = this.previewVersion().createdBy ? this.previewVersion().createdBy.name : ko.i18n('common.anonymous', 'anonymous');
+				createdBy = ko.i18n('common.anonymous', 'anonymous');
 				createdDate = commonUtils.formatDateForAuthorship(this.previewVersion().createdDate);
 				modifiedBy = null;
 				modifiedDate = null;
 			} else {
 				createdText = ko.i18n('components.authorship.created', 'created');
-				createdBy = cohortDef.createdBy() ? cohortDef.createdBy().name : ko.i18n('common.anonymous', 'anonymous');
+				createdBy = ko.i18n('common.anonymous', 'anonymous');
 				createdDate = commonUtils.formatDateForAuthorship(cohortDef.createdDate);
-				modifiedBy = cohortDef.modifiedBy() ? cohortDef.modifiedBy().name : ko.i18n('common.anonymous', 'anonymous');
+				modifiedBy = ko.i18n('common.anonymous', 'anonymous');
 				modifiedDate = commonUtils.formatDateForAuthorship(cohortDef.modifiedDate);
 			}
 

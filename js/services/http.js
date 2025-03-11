@@ -59,6 +59,10 @@ define(function(require, exports) {
       if (this.isSecureUrl(requestUrl)) {
         const headers = super.getHeaders();
         headers['Action-Location'] = location;
+        const d2eToken = sessionStorage.getItem("d2e-token")
+        const datasetId = sessionStorage.getItem("d2e-datasetId")
+        headers['Authorization'] = `Bearer ${d2eToken}`
+        headers['datasetId'] = datasetId
         return headers;
       }
       return {};
