@@ -10,7 +10,21 @@ define(['knockout', 'lscache', 'services/job/jobDetail', 'assets/ohdsi.util', 'c
 	state.loading = ko.observable(false);
 
 	const updateKey = (key, value) => value ? sessionStorage.setItem(key, value) : sessionStorage.removeItem(key);
-	state.vocabularyUrl = ko.observable(sessionStorage.vocabularyUrl);
+	state.vocabularyUrl = ko.pureComputed({
+		read: function() {
+			const originalUrl = sessionStorage.vocabularyUrl;
+			const url = new URL(originalUrl);
+			let pathname = url.pathname;
+			const basePathIndex = pathname.indexOf('d2e-webapi/vocabulary');
+			const currentPart = pathname.slice(basePathIndex + 'd2e-webapi/vocabulary/'.length);
+			const newPart = sessionStorage.getItem('d2e-datasetId')||'';
+			const newPathname = pathname.replace(currentPart, newPart);
+			url.pathname = newPathname;
+			const newUrl = url.toString();
+			return newUrl;
+		}
+	});
+	
 	state.evidenceUrl = ko.observable(sessionStorage.evidenceUrl);
 	state.resultsUrl = ko.observable(sessionStorage.resultsUrl);
 	state.currentVocabularyVersion = ko.observable(sessionStorage.currentVocabularyVersion);
@@ -38,6 +52,8 @@ define(['knockout', 'lscache', 'services/job/jobDetail', 'assets/ohdsi.util', 'c
 	}
 
 	state.sourceKeyOfVocabUrl = ko.computed(() => {
+        const sourceKey = sessionStorage.getItem("d2e-datasetId")
+		return sourceKey
 		return state.vocabularyUrl() ? state.vocabularyUrl().replace(/\/$/, '').split('/').pop() : null;
 	});
 

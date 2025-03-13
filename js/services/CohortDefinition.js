@@ -113,11 +113,13 @@ define(function (require, exports) {
 
 
 	function generate(cohortDefinitionId, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		return httpService.doGet(`${config.webAPIRoot}cohortdefinition/${cohortDefinitionId}/generate/${sourceKey}`);
 	}
 
 
 	function cancelGenerate(cohortDefinitionId, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
     return $.ajax({
 			url: config.webAPIRoot + 'cohortdefinition/' + (cohortDefinitionId || '-1') + '/cancel/' + sourceKey,
 			error: authApi.handleAccessDenied,
@@ -136,6 +138,7 @@ define(function (require, exports) {
 	}
 
 	function getReport(cohortDefinitionId, sourceKey, modeId) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		var reportPromise = $.ajax({
 			url: `${config.webAPIRoot}cohortdefinition/${(cohortDefinitionId || '-1')}/report/${sourceKey}?mode=${modeId || 0}`,
 			error: function (error) {
@@ -152,6 +155,7 @@ define(function (require, exports) {
 	}
 
 	function getCohortCount(sourceKey, cohortDefinitionId) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		return httpService.doGet(config.api.url + 'cohortresults/' + sourceKey + '/' + cohortDefinitionId + '/distinctPersonCount')
 			.then(({ data }) => data);
 	}

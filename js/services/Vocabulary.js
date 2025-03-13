@@ -14,6 +14,7 @@ define(function (require, exports) {
 	var domains = [];
 
 	function getVocabUrl(url, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		return sourceKey === undefined ? sharedState.vocabularyUrl() : (url || config.webAPIRoot) + 'vocabulary/' + sourceKey;
 	}
 
@@ -45,6 +46,7 @@ define(function (require, exports) {
 	}
 
 	function loadDensity(results, sourceKey, formatter) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		var densityPromise = $.Deferred();
 
 		if (results.length == 0) {
@@ -117,6 +119,7 @@ define(function (require, exports) {
 	}
 
 	function resolveConceptSetExpression(expression, url, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		const vocabUrl = getVocabUrl(url, sourceKey);
 		return httpService.doPost(vocabUrl + 'resolveConceptSetExpression', expression).then(({ data }) => data);
 	}
@@ -128,6 +131,7 @@ define(function (require, exports) {
 	}
 
 	function getConceptsById(identifiers, url, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		const vocabUrl = getVocabUrl(url, sourceKey);
 		const repositoryUrl = vocabUrl + 'lookup/identifiers';
 
@@ -144,6 +148,7 @@ define(function (require, exports) {
 	}
 
 	function getMappedConceptsById(identifiers, url, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		const vocabUrl = getVocabUrl(url, sourceKey);
 
 		var getMappedConceptsByIdPromise = $.ajax({
@@ -158,11 +163,13 @@ define(function (require, exports) {
 	}
 
 	async function  getRecommendedConceptsById(identifiers, url, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		var vocabUrl = getVocabUrl(url, sourceKey) + 'lookup/recommended';
 		return httpService.doPost(vocabUrl, identifiers).then(({ data }) => data);;
 	}
 
 	function optimizeConceptSet(conceptSetItems, url, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		const vocabUrl = getVocabUrl(url, sourceKey);
 
 		var getOptimizedConceptSetPromise = $.ajax({
@@ -177,6 +184,7 @@ define(function (require, exports) {
 	}
 
 	function compareConceptSet(compareTargets, url, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		const vocabUrl = getVocabUrl(url, sourceKey);
 
 		var getComparedConceptSetPromise = $.ajax({
@@ -191,6 +199,7 @@ define(function (require, exports) {
 	}
 
 	function compareConceptSetCsv(compareTargets,types, url, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		const vocabUrl = getVocabUrl(url, sourceKey);
 
 		var getComparedConceptSetPromise = $.ajax({
@@ -205,6 +214,7 @@ define(function (require, exports) {
 	}
 	
 	async function loadAncestors(ancestors, descendants, url, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		const vocabUrl = getVocabUrl(url, sourceKey);
 		const data = { ancestors, descendants };
 		return httpService.doPost(vocabUrl + 'lookup/identifiers/ancestors', data);

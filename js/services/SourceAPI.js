@@ -153,6 +153,7 @@ define(function (require, exports) {
       }
 
       if (source.hasVocabulary && authApi.hasSourceAccess(source.sourceKey)) {
+        source.sourceKey = sessionStorage.getItem("d2e-datasetId")
         $.ajax({
           url: config.api.url + 'vocabulary/' + source.sourceKey + '/info',
           timeout: 20000,
@@ -200,6 +201,7 @@ define(function (require, exports) {
   }
 
   function getVocabularyUrl(sourceKey) {
+      sourceKey = sessionStorage.getItem("d2e-datasetId")
       return config.api.url + 'vocabulary/' + sourceKey + '/';
   }
 
@@ -211,6 +213,7 @@ define(function (require, exports) {
       return config.api.url + 'cdmresults/' + sourceKey + '/';
   }
   function getVocabularyInfo(sourceKey) {
+    sourceKey = sessionStorage.getItem("d2e-datasetId")
     return httpService.doGet(config.webAPIRoot + 'vocabulary/' + sourceKey + '/info');
   }
 

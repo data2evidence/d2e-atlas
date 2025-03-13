@@ -7,7 +7,7 @@ define(function () {
   // default configuration
   appConfig.api = {
     name: 'Local',
-    url: 'https://localhost:41100/d2e-webapi/'
+    url: `${window.location.protocol}//${window.location.hostname}:${window.location.port}/d2e-webapi/` 
   };
   appConfig.disableBrowserCheck = false; // browser check will happen by default
   appConfig.enablePermissionManagement = true; // allow UI to assign read/write permissions to entities
