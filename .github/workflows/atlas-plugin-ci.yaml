@@ -77,8 +77,7 @@ jobs:
       - name: Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          # SHOULD_PUBLISH: ${{ github.ref_name == 'master' || github.event_name == 'workflow_dispatch' }}
-          SHOULD_PUBLISH: true
+          SHOULD_PUBLISH: ${{ github.ref_name == 'master' || github.event_name == 'workflow_dispatch' }}
         run: |
           if [[ $SHOULD_PUBLISH == true ]]; then
             npm publish
