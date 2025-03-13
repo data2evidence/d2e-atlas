@@ -95,9 +95,9 @@
 				data-bind="visible: !previewVersion(), css: { active: $component.tabMode() == 'export' }, click: () => { $component.selectTab('export'); refreshPrintFriendly(); }">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.export', 'Export')"></a>
 			</li>
-			<li role="presentation" data-bind="css: { active: $component.tabMode() == 'versions' }, click: () => { $component.selectTab('versions'); }">
+			<!-- <li role="presentation" data-bind="css: { active: $component.tabMode() == 'versions' }, click: () => { $component.selectTab('versions'); }">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.versions', 'Versions')"></a>
-			</li>
+			</li> -->
 			<!-- <li role="presentation" data-bind="css: { active: $component.tabMode() === 'warnings' }, click: function(){ $component.selectTab('warnings'); } ">
 				<a>
 					<span data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.messages', 'Messages')"></span> -->
@@ -135,10 +135,10 @@
 						<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.panels.json', 'JSON')"></a>
 					</li>
 
-					<li role="presentation"
+					<!-- <li role="presentation"
 						data-bind="css: { active: $component.exportTabMode() == 'sql' }, click: function() { $component.exportTabMode('sql');}">
 						<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.panels.sql', 'SQL')"></a>
-					</li>
+					</li> -->
 				</ul>
 
 				<div class="tab-content">
