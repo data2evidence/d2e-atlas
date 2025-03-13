@@ -108,7 +108,7 @@ jobs:
           SHOULD_PUBLISH: ${{ github.ref_name == 'master' || github.event_name == 'workflow_dispatch' }}
         run: |
           if [[ $SHOULD_PUBLISH == true ]]; then
-            yarn publish
+            npm publish
           else 
-            yarn pack
+            npm publish --dry-run
           fi
