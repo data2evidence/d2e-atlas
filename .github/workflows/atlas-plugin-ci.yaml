@@ -103,9 +103,9 @@ jobs:
       - name: Publish
         if: ${{ github.ref_name == 'master' || github.event_name == 'workflow_dispatch' || steps.file_changes.outputs.js == 'true' }}
         env:
-          CI: false
           NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
-          SHOULD_PUBLISH: ${{ github.ref_name == 'master' || github.event_name == 'workflow_dispatch' }}
+          # SHOULD_PUBLISH: ${{ github.ref_name == 'master' || github.event_name == 'workflow_dispatch' }}
+          SHOULD_PUBLISH: true
         run: npm publish
         # run: |
         #   if [[ $SHOULD_PUBLISH == true ]]; then
