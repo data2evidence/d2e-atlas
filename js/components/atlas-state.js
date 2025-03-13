@@ -20,7 +20,7 @@ define(['knockout', 'lscache', 'services/job/jobDetail', 'assets/ohdsi.util', 'c
 			const newPart = sessionStorage.getItem('d2e-datasetId')||'';
 			const newPathname = pathname.replace(currentPart, newPart);
 			url.pathname = newPathname;
-			const newUrl = url.toString();
+			const newUrl = url.toString() + '/';
 			return newUrl;
 		}
 	});

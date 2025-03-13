@@ -22,7 +22,9 @@ define(
 	) => {
     class AtlasRouter {
       constructor() {
-        const allowedPages = ['cohortDefinitions'];
+        // Object.keys(pages)
+        // ['home', 'dataSources', 'vocabulary', 'conceptSets', 'cohortDefinitions', 'characterizations', 'pathways', 'incidenceRates', 'profiles', 'estimation', 'prediction', 'reusables', 'tagging', 'jobs', 'configuration', 'feedback']
+        const allowedPages = ['cohortDefinitions', 'vocabulary'];
         this.activeRoute = ko.observable({});
         this.currentView = ko.observable('loading');
         this.onLoginSubscription;

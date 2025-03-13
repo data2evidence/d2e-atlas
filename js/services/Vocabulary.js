@@ -14,7 +14,7 @@ define(function (require, exports) {
 	var domains = [];
 
 	function getVocabUrl(url, sourceKey) {
-        sourceKey = sessionStorage.getItem("d2e-datasetId")
+        sourceKey = sourceKey ? sessionStorage.getItem("d2e-datasetId") : sourceKey
 		return sourceKey === undefined ? sharedState.vocabularyUrl() : (url || config.webAPIRoot) + 'vocabulary/' + sourceKey;
 	}
 
