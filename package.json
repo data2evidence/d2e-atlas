@@ -1,6 +1,6 @@
 {
-  "name": "atlas",
-  "version": "2.15.0-DEV",
+  "name": "d2e-atlas",
+  "version": "0.0.99",
   "description": "is an open source software tool for researchers to conduct scientific analyses on standardized observational data converted to the OMOP Common Data Model V5",
   "main": "js/main.js",
   "scripts": {
