@@ -74,13 +74,16 @@ jobs:
           else
             jq --arg v "-$(date +%s)-$GITHUB_SHA" '.version+=$v' package.json > tmppkg; mv tmppkg package.json
           fi
+      - name: Create Package Tarball
+        run: npm pack
       - name: Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          SHOULD_PUBLISH: ${{ github.ref_name == 'master' || github.event_name == 'workflow_dispatch' }}
+          # SHOULD_PUBLISH: ${{ github.ref_name == 'master' || github.event_name == 'workflow_dispatch' }}
+          SHOULD_PUBLISH: true
         run: |
           if [[ $SHOULD_PUBLISH == true ]]; then
-            npm publish
+            npm publish *.tgz
           else 
             npm publish --dry-run
           fi
