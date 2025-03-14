@@ -77,7 +77,7 @@ jobs:
       - name: Create Package with Node Modules
         run: |
           mkdir -p package
-          cp -r * package/
+          rsync -av --exclude=node_modules ./ package/
           cp -r node_modules package/
           tar -czvf d2e-atlas-package.tgz -C package .
       - name: Publish Package 
