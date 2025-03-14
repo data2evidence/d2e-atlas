@@ -62,7 +62,9 @@ define(function (require, exports) {
 	function deleteCohortDefinition(id) {
 		var deletePromise = $.ajax({
 			url: config.webAPIRoot + 'cohortdefinition/' + (id || ""),
-			method: 'DELETE'
+			method: 'DELETE',
+        	contentType: 'application/json; charset=utf-8', // server complains of 415 error
+			data: JSON.stringify({}) // required by fastify for content type json
 		});
 		return deletePromise;
 	}
