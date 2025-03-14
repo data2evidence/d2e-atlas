@@ -12,16 +12,11 @@ define(['knockout', 'lscache', 'services/job/jobDetail', 'assets/ohdsi.util', 'c
 	const updateKey = (key, value) => value ? sessionStorage.setItem(key, value) : sessionStorage.removeItem(key);
 	state.vocabularyUrl = ko.pureComputed({
 		read: function() {
-			const originalUrl = sessionStorage.vocabularyUrl;
-			const url = new URL(originalUrl);
-			let pathname = url.pathname;
-			const basePathIndex = pathname.indexOf('d2e-webapi/vocabulary');
-			const currentPart = pathname.slice(basePathIndex + 'd2e-webapi/vocabulary/'.length);
-			const newPart = sessionStorage.getItem('d2e-datasetId')||'';
-			const newPathname = pathname.replace(currentPart, newPart);
-			url.pathname = newPathname;
-			const newUrl = url.toString() + '/';
-			return newUrl;
+			const datasetId = sessionStorage.getItem('d2e-datasetId')
+			const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+			const vocabPath = '/d2e-webapi/vocabulary'
+			const vocabularyUrl = `${url}${vocabPath}/${datasetId}/`
+			return vocabularyUrl
 		}
 	});
 	
