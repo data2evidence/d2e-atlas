@@ -65,7 +65,12 @@ define(function(require, exports) {
         headers['datasetId'] = datasetId
         return headers;
       }
-      return {};
+      const d2eToken = sessionStorage.getItem("d2e-token")
+      const datasetId = sessionStorage.getItem("d2e-datasetId")
+      const headers = {}
+      headers['Authorization'] = `Bearer ${d2eToken}`
+      headers['datasetId'] = datasetId
+      return headers;
     }
 
     sendRequest(method, path, payload) {
