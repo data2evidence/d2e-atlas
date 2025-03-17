@@ -18,7 +18,7 @@
 		<script>
 			// Atlas and Portal should share the same origin
 			// https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
-			const originUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+			const originUrl = `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}`;
 			window.addEventListener('message', (event) => {
 				if (event.origin !== originUrl || event.data?.source?.includes("react-devtools")) {
 					// Ignore messages from React DevTools
@@ -65,7 +65,7 @@
 					data-bind="click: function() { 
 					window.parent.postMessage(
 						{ type: 'CLOSE_ATLAS' }, 
-						`${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+						`${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}`;
 					);},
 					css: $root.classes({ element: 'menu-item', modifiers: '' })"
 			  	>

@@ -13,7 +13,7 @@ define(['knockout', 'lscache', 'services/job/jobDetail', 'assets/ohdsi.util', 'c
 	state.vocabularyUrl = ko.pureComputed({
 		read: function() {
 			const datasetId = sessionStorage.getItem('d2e-datasetId')
-			const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+			const url = `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}`;
 			const vocabPath = '/d2e-webapi/vocabulary'
 			const vocabularyUrl = `${url}${vocabPath}/${datasetId}/`
 			return vocabularyUrl
