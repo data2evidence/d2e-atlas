@@ -15,14 +15,22 @@ define(function (require, exports) {
 	}
 
 	function getCohortDefinitionList() {
+        const d2eToken = sessionStorage.getItem("d2e-token")
+        const datasetId = sessionStorage.getItem("d2e-datasetId")
 		var promise = $.ajax({
 			url: config.webAPIRoot + 'cohortdefinition/',
-			error: authApi.handleAccessDenied
+			error: authApi.handleAccessDenied,
+			headers: {
+				"Authorization":  `Bearer ${d2eToken}`,
+				"datasetId": datasetId
+			}
 		});
 		return promise;
 	}
 
 	async function saveCohortDefinition(definition) {
+        const d2eToken = sessionStorage.getItem("d2e-token")
+        const datasetId = sessionStorage.getItem("d2e-datasetId")
 		return authApi.executeWithRefresh($.ajax({
 			url: config.webAPIRoot + 'cohortdefinition/' + (definition.id || ""),
 			method: definition.id ? 'PUT' : 'POST',
@@ -31,6 +39,10 @@ define(function (require, exports) {
 			error: function(error) {
 				console.log("Error: " + error);
 				authApi.handleAccessDenied(error);
+			},
+			headers: {
+				"Authorization":  `Bearer ${d2eToken}`,
+				"datasetId": datasetId
 			}
 	  }));
 	}
@@ -50,7 +62,9 @@ define(function (require, exports) {
 	function deleteCohortDefinition(id) {
 		var deletePromise = $.ajax({
 			url: config.webAPIRoot + 'cohortdefinition/' + (id || ""),
-			method: 'DELETE'
+			method: 'DELETE',
+        	contentType: 'application/json; charset=utf-8', // server complains of 415 error
+			data: JSON.stringify({}) // required by fastify for content type json
 		});
 		return deletePromise;
 	}
@@ -60,7 +74,7 @@ define(function (require, exports) {
 			.doGet(config.webAPIRoot + 'cohortdefinition/' + id)
 			.then(res => {
 				const cohortDef = res.data;
-				cohortDef.expression = JSON.parse(cohortDef.expression);
+				// cohortDef.expression = JSON.parse(cohortDef.expression);
 				return cohortDef;
 			}).catch(error => {
 				console.log("Error: " + error);
@@ -101,11 +115,13 @@ define(function (require, exports) {
 
 
 	function generate(cohortDefinitionId, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		return httpService.doGet(`${config.webAPIRoot}cohortdefinition/${cohortDefinitionId}/generate/${sourceKey}`);
 	}
 
 
 	function cancelGenerate(cohortDefinitionId, sourceKey) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
     return $.ajax({
 			url: config.webAPIRoot + 'cohortdefinition/' + (cohortDefinitionId || '-1') + '/cancel/' + sourceKey,
 			error: authApi.handleAccessDenied,
@@ -124,6 +140,7 @@ define(function (require, exports) {
 	}
 
 	function getReport(cohortDefinitionId, sourceKey, modeId) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		var reportPromise = $.ajax({
 			url: `${config.webAPIRoot}cohortdefinition/${(cohortDefinitionId || '-1')}/report/${sourceKey}?mode=${modeId || 0}`,
 			error: function (error) {
@@ -140,6 +157,7 @@ define(function (require, exports) {
 	}
 
 	function getCohortCount(sourceKey, cohortDefinitionId) {
+        sourceKey = sessionStorage.getItem("d2e-datasetId")
 		return httpService.doGet(config.api.url + 'cohortresults/' + sourceKey + '/' + cohortDefinitionId + '/distinctPersonCount')
 			.then(({ data }) => data);
 	}

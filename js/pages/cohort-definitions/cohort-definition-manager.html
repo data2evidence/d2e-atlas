@@ -25,13 +25,13 @@
 						data-bind="title: ko.i18n('cohortDefinitions.cohortDefinitionManager.closeCohortTitle', 'Close cohort definition'), click: close, css: { disabled: isProcessing() }"><i
 							class="fa fa-times"></i></button>
 					<!-- ko if: currentCohortDefinition().id() != null && currentCohortDefinition().id() != 0 -->
-					<button class="btn btn-primary"
-						data-bind="title: ko.i18n('common.tags', 'Tags'), visible: canEdit() && !previewVersion(), click: () => isTagsModalShown(!isTagsModalShown()), css: { disabled: isProcessing() }"><i class="fa fa-tags"></i></button>
+					<!-- <button class="btn btn-primary"
+						data-bind="title: ko.i18n('common.tags', 'Tags'), visible: canEdit() && !previewVersion(), click: () => isTagsModalShown(!isTagsModalShown()), css: { disabled: isProcessing() }"><i class="fa fa-tags"></i></button> -->
 					<button class="btn btn-primary"
 						data-bind="visible: !previewVersion(), title: ko.i18n('cohortDefinitions.cohortDefinitionManager.createCopyCohortTitle', 'Create a copy of this cohort definition'), click: copy, enable: canCopy() && !isProcessing()"><i
 							class="fa fa-copy"></i></button>
-					<button class="btn btn-primary"
-						data-bind="visible: !previewVersion(), title: ko.i18n('cohortDefinitions.cohortDefinitionManager.getLinkCohortTitle', 'Get a link to this cohort definition'), enable: !dirtyFlag().isDirty() && !isProcessing(), click: function () { $component.cohortLinkModalOpened(true) }"><i class="fa fa-link"></i></button>
+					<!-- <button class="btn btn-primary"
+						data-bind="visible: !previewVersion(), title: ko.i18n('cohortDefinitions.cohortDefinitionManager.getLinkCohortTitle', 'Get a link to this cohort definition'), enable: !dirtyFlag().isDirty() && !isProcessing(), click: function () { $component.cohortLinkModalOpened(true) }"><i class="fa fa-link"></i></button> -->
 
 					<!-- ko if: enablePermissionManagement -->
 					<button class="btn btn-primary"
@@ -71,20 +71,20 @@
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.conceptSets', 'Concept Sets')"></a>
 			</li>
 
-			<li role="presentation"
+			<!-- <li role="presentation"
 				data-bind="visible: !previewVersion(), css: { active: $component.tabMode() == 'generation' }, click: function() { $component.selectTab('generation'); }">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.generation', 'Generation')"></a>
-			</li>
+			</li> -->
 
-			<li role="presentation"
+			<!-- <li role="presentation"
 				data-bind="visible: !previewVersion(), css: { active: $component.tabMode() == 'samples' }, click: clickSampleTab">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.samples', 'Samples')"></a>
-			</li>
+			</li> -->
 
-			<li role="presentation"
+			<!-- <li role="presentation"
 				data-bind="visible: !previewVersion(), css: { active: $component.tabMode() == 'reporting' }, click: function() { $component.selectTab('reporting'); }">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.reporting', 'Reporting')"></a>
-			</li>
+			</li> -->
 			<!--
 			<li role="presentation"
 				data-bind="visible: !previewVersion(), css: { active: $component.tabMode() == 'explore' }, click: function() { $component.selectTab('explore'); }">
@@ -95,15 +95,14 @@
 				data-bind="visible: !previewVersion(), css: { active: $component.tabMode() == 'export' }, click: () => { $component.selectTab('export'); refreshPrintFriendly(); }">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.export', 'Export')"></a>
 			</li>
-			<li role="presentation" data-bind="css: { active: $component.tabMode() == 'versions' }, click: () => { $component.selectTab('versions'); }">
+			<!-- <li role="presentation" data-bind="css: { active: $component.tabMode() == 'versions' }, click: () => { $component.selectTab('versions'); }">
 				<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.versions', 'Versions')"></a>
-			</li>
-			<li role="presentation" data-bind="css: { active: $component.tabMode() === 'warnings' }, click: function(){ $component.selectTab('warnings'); } ">
+			</li> -->
+			<!-- <li role="presentation" data-bind="css: { active: $component.tabMode() === 'warnings' }, click: function(){ $component.selectTab('warnings'); } ">
 				<a>
-					<span data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.messages', 'Messages')"></span>
-					<!-- ko component: { name: 'warnings-badge', params: warningParams() } --> <!-- /ko -->
-				</a>
-			</li>
+					<span data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.tabs.messages', 'Messages')"></span> -->
+				<!-- </a>
+			</li> -->
 		</ul>
 		<div class="tab-content">
 			<div role="tabpanel" data-bind="css: { active: $component.tabMode() == 'definition' }" class="tab-pane">
@@ -136,10 +135,10 @@
 						<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.panels.json', 'JSON')"></a>
 					</li>
 
-					<li role="presentation"
+					<!-- <li role="presentation"
 						data-bind="css: { active: $component.exportTabMode() == 'sql' }, click: function() { $component.exportTabMode('sql');}">
 						<a data-bind="text: ko.i18n('cohortDefinitions.cohortDefinitionManager.panels.sql', 'SQL')"></a>
-					</li>
+					</li> -->
 				</ul>
 
 				<div class="tab-content">
@@ -783,13 +782,13 @@
 								visible: $component.isSourceRunning($data),
 								attr: {disabled: $component.isCancelDisabled($data)}"><i class="fa fa-spinner fa-spin"></i> <span data-bind="text: ko.i18n('common.cancel', 'Cancel')"></span>
 		</a>
-		<button class="btn btn-sm btn-primary"
+		<!-- <button class="btn btn-sm btn-primary"
 			 data-bind="attr: {disabled: $component.isSourceRunning($data) || !isValid()}, click:$component.toggleCohortReport">
 			<i class="fa fa-eye"></i>
 			<span data-bind="text: (($component.selectedReportSource() && $component.selectedReportSource().sourceKey === sourceKey)
 											? ko.i18n('cohortDefinitions.cohortDefinitionManager.panels.hideReports', 'Hide Reports')
 											: ko.i18n('cohortDefinitions.cohortDefinitionManager.panels.viewReports', 'View Reports'))"></span>
-		</button>
+		</button> -->
 	</div>
 </script>
 

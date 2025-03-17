@@ -1,6 +1,6 @@
 {
-  "name": "atlas",
-  "version": "2.15.0-DEV",
+  "name": "@data2evidence/d2e-atlas",
+  "version": "0.0.99",
   "description": "is an open source software tool for researchers to conduct scientific analyses on standardized observational data converted to the OMOP Common Data Model V5",
   "main": "js/main.js",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OHDSI/Atlas.git"
+    "url": "git+https://github.com/data2evidence/d2e-atlas.git"
   },
   "author": "Chris Knoll",
   "contributors": [
@@ -94,5 +94,15 @@
     "urijs": "1.19.11",
     "venn.js": "0.2.20",
     "xss": "1.0.14"
+  },
+  "trex": {
+    "ui": {
+      "routes": [
+        {
+          "source": "/atlas",
+          "target": "/"
+        }
+      ]
+    }
   }
 }

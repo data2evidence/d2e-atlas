@@ -10,7 +10,16 @@ define(['knockout', 'lscache', 'services/job/jobDetail', 'assets/ohdsi.util', 'c
 	state.loading = ko.observable(false);
 
 	const updateKey = (key, value) => value ? sessionStorage.setItem(key, value) : sessionStorage.removeItem(key);
-	state.vocabularyUrl = ko.observable(sessionStorage.vocabularyUrl);
+	state.vocabularyUrl = ko.pureComputed({
+		read: function() {
+			const datasetId = sessionStorage.getItem('d2e-datasetId')
+			const url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+			const vocabPath = '/d2e-webapi/vocabulary'
+			const vocabularyUrl = `${url}${vocabPath}/${datasetId}/`
+			return vocabularyUrl
+		}
+	});
+	
 	state.evidenceUrl = ko.observable(sessionStorage.evidenceUrl);
 	state.resultsUrl = ko.observable(sessionStorage.resultsUrl);
 	state.currentVocabularyVersion = ko.observable(sessionStorage.currentVocabularyVersion);
@@ -38,6 +47,8 @@ define(['knockout', 'lscache', 'services/job/jobDetail', 'assets/ohdsi.util', 'c
 	}
 
 	state.sourceKeyOfVocabUrl = ko.computed(() => {
+        const sourceKey = sessionStorage.getItem("d2e-datasetId")
+		return sourceKey
 		return state.vocabularyUrl() ? state.vocabularyUrl().replace(/\/$/, '').split('/').pop() : null;
 	});
 

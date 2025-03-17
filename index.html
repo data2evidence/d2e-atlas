@@ -2,6 +2,7 @@
 <html lang="en">
 
 	<head>
+		<base href="/atlas/">
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +15,24 @@
 
 		<title data-bind="text: pageTitle">ATLAS</title>
 		<script src="node_modules/bowser/bundled.js"></script>
+		<script>
+			// Atlas and Portal should share the same origin
+			// https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
+			const originUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+			window.addEventListener('message', (event) => {
+				if (event.origin !== originUrl || event.data?.source?.includes("react-devtools")) {
+					// Ignore messages from React DevTools
+					return;
+				}
+				if (!event?.data?.token) {
+					console.error('No D2E token passed from portal')
+					return
+				}
+				sessionStorage.setItem("d2e-token", event.data.token);
+				sessionStorage.setItem("d2e-datasetId", event.data.datasetId);
+				sessionStorage.setItem("d2e-username", event.data.username);
+			})
+		</script>
 	</head>
 
 	<body class="app">
@@ -41,6 +60,21 @@
 			</div>
 
 			<div class="app__menu">
+				<a
+					style="cursor: pointer;"
+					data-bind="click: function() { 
+					window.parent.postMessage(
+						{ type: 'CLOSE_ATLAS' }, 
+						`${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+					);},
+					css: $root.classes({ element: 'menu-item', modifiers: '' })"
+			  	>
+				  	<i data-bind="css: $root.classes({ element: 'menu-icon', extra: `fa fa-fw fa-chevron-circle-left`})" aria-hidden="true"></i>
+					<span
+					data-bind="text: 'Back to Cohorts', css: $root.classes('menu-title')"
+					></span>
+			  	</a>
+				  
 				<!-- ko foreach: router.pages -->
 				<a data-bind="visible: !$data.hidden, attr: {href: navUrl()}, css: $parent.classes({ element: 'menu-item', modifiers: $parent.router.activeRoute().title === $data.title ? 'selected' : '', extra: statusCss() })">
 					<i data-bind="css: $parent.classes({ element: 'menu-icon', extra: `fa fa-fw fa-${icon}`})" aria-hidden="true"></i>

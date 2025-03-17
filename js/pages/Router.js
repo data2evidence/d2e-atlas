@@ -22,10 +22,15 @@ define(
 	) => {
     class AtlasRouter {
       constructor() {
+        // Object.keys(pages)
+        // ['home', 'dataSources', 'vocabulary', 'conceptSets', 'cohortDefinitions', 'characterizations', 'pathways', 'incidenceRates', 'profiles', 'estimation', 'prediction', 'reusables', 'tagging', 'jobs', 'configuration', 'feedback']
+        const allowedPages = ['cohortDefinitions', 'vocabulary'];
         this.activeRoute = ko.observable({});
         this.currentView = ko.observable('loading');
         this.onLoginSubscription;
-        this.pages = Object.values(pages);
+        this.pages = Object.entries(pages)
+          .filter(([key]) => allowedPages.includes(key))
+          .map(([_, value]) => value);
         this.routerParams = ko.observable();
         this.currentViewAccessible = ko.pureComputed(() => {
           return this.currentView && (
@@ -132,3 +137,4 @@ define(
     return new AtlasRouter();
 	}
 );
+

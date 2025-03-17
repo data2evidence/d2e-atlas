@@ -55,6 +55,11 @@ define(function(require, exports) {
                 xhr.setRequestHeader('Authorization', getAuthorizationHeader());
                 xhr.setRequestHeader('Action-Location', location);
             }
+
+            const d2eToken = sessionStorage.getItem("d2e-token");
+            const datasetId = sessionStorage.getItem("d2e-datasetId");
+            xhr.setRequestHeader('datasetId', datasetId);
+            xhr.setRequestHeader('Authorization', `Bearer ${d2eToken}`);
         }
     });
 
