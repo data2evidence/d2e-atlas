@@ -65,7 +65,7 @@
 					data-bind="click: function() { 
 					window.parent.postMessage(
 						{ type: 'CLOSE_ATLAS' }, 
-						`${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}`;
+						`${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}`
 					);},
 					css: $root.classes({ element: 'menu-item', modifiers: '' })"
 			  	>
